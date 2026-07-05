@@ -21,6 +21,12 @@ as close to your secret target as possible. Once per round someone gets a
   AFK players get a fallback category auto-filled; missing ballots are simply
   excluded (the neutral treatment).
 
+> **Note:** this repo is already wired to the `ranking-game-44c68` Firebase
+> project (the web config is baked into `src/firebase.js` — it's public by
+> design). To point it at a different Firebase project, create a `.env` from
+> `.env.example`; those values take precedence. Either way, the database
+> **rules** must be published (step 3 below / `database.rules.json`).
+
 ## 1. Firebase setup (one-time, ~5 minutes)
 
 1. Go to [console.firebase.google.com](https://console.firebase.google.com) and
