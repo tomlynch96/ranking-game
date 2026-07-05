@@ -130,6 +130,21 @@ test('full round flow: start, write, vote, reveal, roundEnd', () => {
   assert.equal(g.players.p0.score, 0);
 });
 
+test('saboteur is never assigned last place as their own target', () => {
+  for (let seed = 1; seed <= 200; seed++) {
+    const g = makeGame(3 + (seed % 6));
+    const n = Object.keys(g.players).length;
+    reduceStartRound(g, 0, seeded(seed));
+    const { saboteurId } = g.round.sabotage;
+    assert.notEqual(g.round.targets[saboteurId], n, `seed ${seed}`);
+    // Still a valid permutation of 1..N after the swap.
+    assert.deepEqual(
+      Object.values(g.round.targets).sort((a, b) => a - b),
+      Array.from({ length: n }, (_, i) => i + 1)
+    );
+  }
+});
+
 test('second round rotates the saboteur', () => {
   const rand = seeded(3);
   const g = makeGame(3);

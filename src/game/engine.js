@@ -116,9 +116,18 @@ export function reduceStartRound(game, now, rand = Math.random) {
   const others = pids.filter((p) => p !== saboteurId);
   const targetId = others[Math.floor(rand() * others.length)];
 
+  // If the sabotage succeeds, the mark takes last place — so the saboteur can
+  // never be asked to finish last themselves. Swap that target away.
+  const targets = assignTargets(pids, rand);
+  if (targets[saboteurId] === pids.length) {
+    const swap = others[Math.floor(rand() * others.length)];
+    targets[saboteurId] = targets[swap];
+    targets[swap] = pids.length;
+  }
+
   game.round = {
     num: (game.round?.num || 0) + 1,
-    targets: assignTargets(pids, rand),
+    targets,
     sabotage: { saboteurId, targetId },
     categories: {},
     order: null,
