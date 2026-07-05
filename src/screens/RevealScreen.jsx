@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as engine from '../game/engine';
 import { Header } from './shared';
+import { DrumrollSvg, SparkleBurstSvg, SadCloudSvg, DevilSvg } from '../components/AnimatedSvg';
 
 // Pools indexed by |target - achieved|, capped at 3. Picked deterministically
 // from the round so every phone shows the same line.
@@ -114,6 +115,12 @@ export default function RevealScreen({ game, pid, code, now, actions, onLeave })
         )}
       </div>
 
+      {step >= 1 && step < 2 + n && (
+        <div className="drumroll-wrap">
+          <DrumrollSvg />
+        </div>
+      )}
+
       <ol className="result-list">
         {result.ranking.map((p, i) => {
           const pl = game.players[p];
@@ -141,6 +148,8 @@ export default function RevealScreen({ game, pid, code, now, actions, onLeave })
 
       {showVerdict && (
         <div className={`card score-card pop ${diff === 0 ? 'hit' : diff >= 3 ? 'miss' : ''}`}>
+          {diff === 0 && <SparkleBurstSvg />}
+          {diff >= 3 && <SadCloudSvg />}
           <p className="verdict-line">{verdict}</p>
           <p>
             Aimed for <b>{engine.ordinal(result.target)}</b>, landed{' '}
@@ -153,7 +162,8 @@ export default function RevealScreen({ game, pid, code, now, actions, onLeave })
 
       {showSab && (
         <div className={`card sabotage-card pop ${result.sabotage.success ? 'success' : 'fail'}`}>
-          <p className="secret-label">😈 BUT WAIT — IT WAS A SABOTAGE ROUND</p>
+          <DevilSvg />
+          <p className="secret-label">BUT WAIT — IT WAS A SABOTAGE ROUND</p>
           <p>
             <b>{authorPl?.name}</b> wrote this to sink{' '}
             <b>

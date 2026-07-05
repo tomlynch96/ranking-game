@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { configOk } from './firebase';
 import { useGame, leaveLobby } from './hooks/useGame';
+import PhaseTransition from './components/PhaseTransition';
 import HomeScreen from './screens/HomeScreen';
 import LobbyScreen from './screens/LobbyScreen';
 import WritingScreen from './screens/WritingScreen';
@@ -71,15 +72,22 @@ function GameView({ session, onLeave }) {
   }
 
   const props = { game, pid, now, actions, code, onLeave: leave };
+  let screen;
   switch (game.phase) {
-    case 'lobby': return <LobbyScreen {...props} />;
-    case 'writing': return <WritingScreen {...props} />;
-    case 'voting': return <VotingScreen {...props} />;
-    case 'reveal': return <RevealScreen {...props} />;
-    case 'roundEnd': return <RoundEndScreen {...props} />;
-    case 'gameOver': return <GameOverScreen {...props} />;
-    default: return <div className="screen center"><p>Unknown phase: {game.phase}</p></div>;
+    case 'lobby': screen = <LobbyScreen {...props} />; break;
+    case 'writing': screen = <WritingScreen {...props} />; break;
+    case 'voting': screen = <VotingScreen {...props} />; break;
+    case 'reveal': screen = <RevealScreen {...props} />; break;
+    case 'roundEnd': screen = <RoundEndScreen {...props} />; break;
+    case 'gameOver': screen = <GameOverScreen {...props} />; break;
+    default: screen = <div className="screen center"><p>Unknown phase: {game.phase}</p></div>;
   }
+  return (
+    <>
+      <PhaseTransition game={game} />
+      {screen}
+    </>
+  );
 }
 
 export default function App() {
