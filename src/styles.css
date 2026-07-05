@@ -519,13 +519,23 @@ code {
   72%, 100% { transform: scale(1, 1); }
 }
 
-/* Drumroll: fast alternating sticks, drum vibrates */
-.drum-stick-l { transform-origin: 15% 15%; animation: stick-l 0.16s linear infinite alternate; }
-.drum-stick-r { transform-origin: 85% 15%; animation: stick-r 0.16s linear infinite alternate-reverse; }
-@keyframes stick-l { from { transform: rotate(-14deg); } to { transform: rotate(10deg); } }
-@keyframes stick-r { from { transform: rotate(14deg); } to { transform: rotate(-10deg); } }
-.drum-body { transform-origin: 50% 100%; animation: drum-shake 0.16s linear infinite alternate; }
-@keyframes drum-shake { from { transform: translateY(0); } to { transform: translateY(1.5px); } }
+/* Drumroll: sticks pivot at the grip, drum squashes, sparks flash on hits */
+.drum-stick-l { transform-origin: 8% 8%; animation: stick-l 0.16s ease-in infinite alternate; }
+.drum-stick-r { transform-origin: 92% 8%; animation: stick-r 0.16s ease-in infinite alternate-reverse; }
+@keyframes stick-l { from { transform: rotate(-17deg); } to { transform: rotate(9deg); } }
+@keyframes stick-r { from { transform: rotate(17deg); } to { transform: rotate(-9deg); } }
+.drum-body { transform-origin: 50% 100%; animation: drum-squash 0.32s linear infinite; }
+@keyframes drum-squash {
+  0%, 40%, 90%, 100% { transform: scale(1, 1); }
+  15%, 65% { transform: scale(1.015, 0.975); }
+}
+.drum-spark { animation: drum-spark 0.32s linear infinite; }
+.drum-spark-r { animation-delay: 0.16s; }
+@keyframes drum-spark {
+  0%, 30%, 75%, 100% { opacity: 0; transform: scale(0.6); }
+  45%, 60% { opacity: 1; transform: scale(1); }
+}
+.drum-spark { transform-origin: 50% 50%; }
 .drumroll-wrap { display: flex; justify-content: center; animation: bounce-in 0.4s; }
 
 /* Trophy rocks with a travelling shine */

@@ -42,22 +42,48 @@ export function BallotSvg({ size = 130 }) {
   );
 }
 
-export function DrumrollSvg({ size = 110 }) {
+export function DrumrollSvg({ size = 120 }) {
   return (
-    <svg className="asvg" width={size} height={size * 0.85} viewBox="0 0 130 110" aria-hidden>
+    <svg className="asvg" width={size} height={size * 0.92} viewBox="0 0 140 128" aria-hidden>
+      {/* impact sparks, flashing in time with the sticks */}
+      <g className="drum-spark drum-spark-l">
+        <path d="M44 34 l3 7 M38 40 l7 3 M36 30 l5 5" stroke="#ffe14d" strokeWidth="4" strokeLinecap="round" />
+      </g>
+      <g className="drum-spark drum-spark-r">
+        <path d="M96 34 l-3 7 M102 40 l-7 3 M104 30 l-5 5" stroke="#ffe14d" strokeWidth="4" strokeLinecap="round" />
+      </g>
+      {/* sticks: chunky, rotating around the grip end */}
       <g className="drum-stick-l">
-        <line x1="22" y1="18" x2="52" y2="48" stroke="#ffb03a" strokeWidth="6" strokeLinecap="round" />
-        <circle cx="22" cy="18" r="7" fill="#fdf6ff" stroke={STROKE} strokeWidth="3.5" />
+        <line x1="14" y1="8" x2="50" y2="42" stroke="#ffb03a" strokeWidth="8" strokeLinecap="round" />
+        <line x1="14" y1="8" x2="50" y2="42" stroke="#e08b1d" strokeWidth="3" strokeLinecap="round" opacity="0.6" />
+        <circle cx="52" cy="44" r="7.5" fill="#fdf6ff" stroke={STROKE} strokeWidth="3.5" />
       </g>
       <g className="drum-stick-r">
-        <line x1="108" y1="18" x2="78" y2="48" stroke="#ffb03a" strokeWidth="6" strokeLinecap="round" />
-        <circle cx="108" cy="18" r="7" fill="#fdf6ff" stroke={STROKE} strokeWidth="3.5" />
+        <line x1="126" y1="8" x2="90" y2="42" stroke="#ffb03a" strokeWidth="8" strokeLinecap="round" />
+        <line x1="126" y1="8" x2="90" y2="42" stroke="#e08b1d" strokeWidth="3" strokeLinecap="round" opacity="0.6" />
+        <circle cx="88" cy="44" r="7.5" fill="#fdf6ff" stroke={STROKE} strokeWidth="3.5" />
       </g>
       <g className="drum-body">
-        <rect x="30" y="55" width="70" height="40" rx="6" fill="#ff4d9d" stroke={STROKE} strokeWidth="4" />
-        <path d="M38 55 l18 40 M56 55 l18 40 M74 55 l18 40 M92 55 l-18 40 M74 55 l-18 40 M56 55 l-18 40"
-          stroke="#ffe14d" strokeWidth="4" strokeLinecap="round" opacity="0.9" />
-        <ellipse cx="65" cy="55" rx="35" ry="12" fill="#fdf6ff" stroke={STROKE} strokeWidth="4" />
+        {/* cylindrical shell with a curved bottom edge */}
+        <path
+          d="M30 62 v40 a40 14 0 0 0 80 0 v-40"
+          fill="#ff4d9d" stroke={STROKE} strokeWidth="4.5" strokeLinejoin="round"
+        />
+        {/* bottom hoop */}
+        <path d="M30 96 a40 14 0 0 0 80 0" fill="none" stroke="#c22f74" strokeWidth="5" />
+        {/* zig-zag lacing */}
+        <path
+          d="M34 70 L48 96 L56 68 L70 98 L84 68 L92 96 L106 70"
+          fill="none" stroke="#ffe14d" strokeWidth="4.5" strokeLinejoin="round" strokeLinecap="round"
+        />
+        {/* tension lugs */}
+        <circle cx="34" cy="70" r="3.5" fill="#ffe14d" stroke={STROKE} strokeWidth="2.5" />
+        <circle cx="56" cy="68" r="3.5" fill="#ffe14d" stroke={STROKE} strokeWidth="2.5" />
+        <circle cx="84" cy="68" r="3.5" fill="#ffe14d" stroke={STROKE} strokeWidth="2.5" />
+        <circle cx="106" cy="70" r="3.5" fill="#ffe14d" stroke={STROKE} strokeWidth="2.5" />
+        {/* drum head with inner ring for depth */}
+        <ellipse cx="70" cy="62" rx="40" ry="14" fill="#fdf6ff" stroke={STROKE} strokeWidth="4.5" />
+        <ellipse cx="70" cy="62" rx="30" ry="9.5" fill="none" stroke="#d9cbf2" strokeWidth="3" />
       </g>
     </svg>
   );
